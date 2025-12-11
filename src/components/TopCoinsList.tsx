@@ -3,15 +3,12 @@ import { useTopCoins } from "../hooks/useTopCoins";
 
 const TopCoinsList: FC = () => {
   const { data, isLoading, error, isFetching } = useTopCoins({
-    perPage: 10,
-    refetchIntervalMs: 0,
+    perPage: 20,
   });
 
   if (isLoading) {
     return (
-      <div className="text-center py-8 text-slate-600">
-        Loading top coins…
-      </div>
+      <div className="text-center py-8 text-slate-600">Loading top coins…</div>
     );
   }
 
@@ -36,12 +33,15 @@ const TopCoinsList: FC = () => {
         {data?.map((c, index) => (
           <li
             key={c.id}
-            className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-lg transition-colors"
+            className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-lg hover:scale-105 hover:shadow-lg transition-all"
           >
             {/* Left side: Rank, name, and symbol */}
             <div className="flex items-center gap-3">
               <span className="text-slate-500 font-medium w-6">
                 {index + 1}
+              </span>
+              <span>
+                <img src={c.image} className="w-6 h-6 rounded-full" />
               </span>
               <strong className="text-slate-900">{c.name}</strong>
               <span className="text-xs text-slate-500 uppercase">
@@ -50,13 +50,28 @@ const TopCoinsList: FC = () => {
             </div>
 
             {/* Right side: Price */}
-            <span className="text-slate-900 font-mono font-medium">
-              $
-              {c.current_price.toLocaleString(undefined, {
-                minimumFractionDigits: 2,
-                maximumFractionDigits: 8,
-              })}
-            </span>
+            <div className="flex flex-col items-end">
+              <div className="flex items-end gap-3">
+                <span className="text-sm text-slate-500">Price</span>
+                <span className="text-slate-900 font-mono font-medium">
+                  $
+                  {c.current_price.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 8,
+                  })}
+                </span>
+              </div>
+              <div className="flex items-end gap-3">
+                <span className="text-sm text-slate-500 w-13">Market Cap</span>
+                <span className="text-slate-900 font-mono font-medium w-30">
+                  $
+                  {c.market_cap.toLocaleString(undefined, {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 8,
+                  })}
+                </span>
+              </div>
+            </div>
           </li>
         ))}
       </ol>
