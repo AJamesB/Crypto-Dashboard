@@ -1,73 +1,87 @@
-# React + TypeScript + Vite
+# Crypto Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A cryptocurrency dashboard built with React, TypeScript, and Tailwind CSS. 
+Track cryptocurrency prices, view detailed coin information, and explore historical market data with interactive charts.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Core Functionality
+- **Real-time(ish) Cryptocurrency Data** - Live prices, market caps, and trading volumes from CoinGecko API
+- **Infinite Scrolling** - Seamlessly browse through hundreds of cryptocurrencies
+- **Detailed Coin Pages** - Information including statistics, descriptions, and external links
+- **Historical Charts** - Interactive price, market cap, and volume charts with multiple time ranges (24h to max)
+- **Multi-currency Support** - View prices in 150+ fiat currencies
+- **Dark Mode** - Full dark mode support with system preference detection
 
-## React Compiler
+### User Experience
+- **Auto-hiding Header** - Smart header that hides when scrolling down and reappears when scrolling up
+- **Expandable Descriptions** - Collapsible coin descriptions with "Read more" functionality
+- **Custom Dropdowns** - Styled dropdown components matching the app's design language
+- **Smooth Animations** - Simple transitions and animations throughout the app
+- **Error Handling** - Error states with retry functionality
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Technical Highlights
+- **State Management** - Redux Toolkit for global UI state (currency, theme) caching
+- **Server State** - React Query for efficient data fetching, caching, and pagination
+- **Type Safety** - Full TypeScript implementation with strict typing
+- **Code Quality** - Clean component architecture with separation of concerns
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React 19.2.0** - Modern React with hooks
+- **TypeScript** - Type-safe development
+- **Redux Toolkit** - Global state management
+- **React Query** - Server state and caching
+- **React Router** - Client-side routing
+- **Tailwind CSS** - Utility-first styling
+- **Recharts** - Data visualization
+- **Vite** - Fast build tool and dev server
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Installation
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Clone the repository:
+```bash
+git clone https://github.com/AJamesB/Crypto-Dashboard.git
+cd Crypto-Dashboard
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+2. Install dependencies:
+```bash
+npm install
+```
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+3. Create a `.env` file in the root directory (optional):
+```env
+VITE_COINGECKO_API_KEY=your_api_key_here
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+4. Start the development server:
+```bash
+npm run dev
+```
+
+5. Open your browser to `http://localhost:5173`
+
+## 🔧 Configuration
+
+### API Key
+The app uses CoinGecko's API with a demo key included. For production use or higher rate limits, get your own API key from [CoinGecko](https://www.coingecko.com/en/api) and add it to your `.env` file.
+
+### Build Configuration
+The app is configured for GitHub Pages deployment with the base path `/Crypto-Dashboard`. To deploy elsewhere, update the `base` in `vite.config.ts` and the `basename` in `App.tsx`.
+
+## 📝 Scripts
+
+- `npm run dev` - Start development server
+- `npm run build` - Build for production
+- `npm run preview` - Preview production build
+- `npm run lint` - Run ESLint
+
+## 🚀 Deployment
+
+The app is configured for GitHub Pages:
+
+```bash
+npm run build
+# Deploy the dist/ folder to GitHub Pages
 ```

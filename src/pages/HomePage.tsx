@@ -27,6 +27,10 @@ export default function HomePage() {
 
   const sentinelRef = useRef<HTMLDivElement>(null);
 
+  /**
+   * Handle intersection observer callback for infinite scroll
+   * Triggers fetchNextPage when the sentinel element becomes visible
+   */
   const handleObserver = useCallback(
     (entries: IntersectionObserverEntry[]) => {
       const [target] = entries;
@@ -37,13 +41,17 @@ export default function HomePage() {
     [fetchNextPage, hasNextPage, isFetchingNextPage]
   );
 
+  /**
+   * Set up intersection observer for infinite scroll
+   * Observes sentinel element at bottom of list with 100px pre-fetch margin
+   */
   useEffect(() => {
     const element = sentinelRef.current;
     if (!element) return;
 
     const observer = new IntersectionObserver(handleObserver, {
       root: null,
-      rootMargin: "100px",
+      rootMargin: "100px", // Start loading 100px before reaching the sentinel
       threshold: 0.1,
     });
 
@@ -52,6 +60,7 @@ export default function HomePage() {
     return () => observer.disconnect();
   }, [handleObserver]);
 
+  // Flatten all pages into a single array of coins
   const coins = data?.pages.flatMap((page) => page) ?? [];
 
   return (

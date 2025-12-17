@@ -109,12 +109,15 @@ export async function fetchSupportedCurrencies(
 
   const currencies: string[] = await resp.json();
 
+  // Transform currency codes into detailed info objects with symbols and names
   const currencyMap: Record<string, CurrencyInfo> = {};
   currencies.forEach((code) => {
     const upperCode = code.toUpperCase();
 
+    // Get currency symbol (e.g., R for ZAR)
     const symbol = getSymbolFromCurrency(upperCode) || "";
 
+    // Get full currency name from currency-codes library
     const currencyData = currencyCodes.code(upperCode);
     const name = currencyData?.currency || "";
 

@@ -48,6 +48,10 @@ export const selectAvailableCurrencies = (state: { currency: CurrencyState }) =>
 export const selectIsLoading = (state: { currency: CurrencyState }) =>
   state.currency.isLoading;
 
+/**
+ * Get detailed info for the currently selected currency
+ * Falls back to basic info if currency not found in available currencies
+ */
 export const selectCurrentCurrencyInfo = (state: {
   currency: CurrencyState;
 }) => {

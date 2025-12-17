@@ -39,11 +39,14 @@ export const Select: FC<SelectProps> = ({
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
-  // Find the selected option label
+  // Find the selected option label to display in the trigger button
   const selectedOption = options.find((opt) => opt.value === value);
   const selectedLabel = selectedOption?.label || "";
 
-  // Close dropdown when clicking outside
+  /**
+   * Close dropdown when user clicks outside of it
+   * Adds event listener when dropdown is open, removes when closed
+   */
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -63,6 +66,10 @@ export const Select: FC<SelectProps> = ({
     };
   }, [isOpen]);
 
+  /**
+   * Handle option selection
+   * Calls onChange with selected value and closes dropdown
+   */
   const handleOptionClick = (optionValue: string | number) => {
     if (!disabled) {
       onChange(String(optionValue));

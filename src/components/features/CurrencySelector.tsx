@@ -19,6 +19,10 @@ export const CurrencySelector: FC = () => {
 
   const dispatch = useDispatch();
 
+  /**
+   * Format available currencies into dropdown options
+   * Creates labels in format: "$ - USD - United States Dollar"
+   */
   const currencyOptions = useMemo(() => {
     if (isLoading) {
       return [{ value: "", label: "Loading..." }];

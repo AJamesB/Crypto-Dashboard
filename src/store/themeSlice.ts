@@ -8,6 +8,10 @@ interface ThemeState {
   theme: Theme;
 }
 
+/**
+ * Get initial theme from localStorage or system preference
+ * Priority: localStorage > system preference > default (dark)
+ */
 const getInitialTheme = (): Theme => {
   const savedTheme = localStorage.getItem("theme") as Theme | null;
   if (savedTheme === "light" || savedTheme === "dark") {
@@ -19,7 +23,7 @@ const getInitialTheme = (): Theme => {
   ) {
     return "dark";
   }
-  return "light";
+  return "dark";
 };
 
 const initialState: ThemeState = {

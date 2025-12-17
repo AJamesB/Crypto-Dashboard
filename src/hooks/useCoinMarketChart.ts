@@ -31,8 +31,9 @@ export function useCoinMarketChart(
     enabled: enabled && !!coinId,
     staleTime: 1000 * 60 * 2, // 2 minutes
     gcTime: 1000 * 60 * 10, // 10 minutes
-    refetchInterval: false,
-    refetchOnWindowFocus: false,
+    refetchInterval: false, // Disabled auto-polling to avoid rate limits
+    // refetchInterval: refetchIntervalMs // for automatic polling
+    refetchOnWindowFocus: false, // Disabled to avoid rate limits
     retry: 2,
   });
 }

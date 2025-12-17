@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { FC } from "react";
 import { useSelector } from "react-redux";
 import type { CoinDetails as CoinDetailsType } from "../../types";
@@ -20,6 +21,31 @@ export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
   const currency = useSelector(selectCurrency);
   const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
   const currencyLower = currency.toLowerCase();
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+
+  /**
+   * Get description text to display based on expanded state
+   * Collapsed: First 3 sentences, Expanded: Full text
+   */
+  const getDescriptionHtml = () => {
+    if (!coin.description?.en) return "";
+
+    const fullText = coin.description.en;
+    if (isDescriptionExpanded) {
+      return fullText;
+    }
+
+    // Show first 3 sentences when collapsed
+    const sentences = fullText.split(". ");
+    if (sentences.length <= 3) {
+      return fullText; // Don't show expand button if 3 or fewer sentences
+    }
+    return sentences.slice(0, 3).join(". ") + ".";
+  };
+
+  const shouldShowExpandButton =
+    coin.description?.en && coin.description.en.split(". ").length > 3;
+
   return (
     <div className="space-y-6">
       {/* Header Section */}
@@ -99,10 +125,18 @@ export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
           <div
             className="text-slate-700 dark:text-slate-300 leading-relaxed transition-colors"
             dangerouslySetInnerHTML={{
-              __html:
-                coin.description.en.split(". ").slice(0, 3).join(". ") + ".",
+              __html: getDescriptionHtml(),
             }}
           />
+          {/* Show expand/collapse button only if more than 3 sentences */}
+          {shouldShowExpandButton && (
+            <button
+              onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}
+              className="mt-2 text-blue-600 dark:text-blue-400 hover:underline text-sm font-medium"
+            >
+              {isDescriptionExpanded ? "Show less" : "Read more"}
+            </button>
+          )}
         </div>
       )}
 

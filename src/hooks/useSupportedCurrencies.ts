@@ -21,6 +21,10 @@ export function useSupportedCurrencies() {
     gcTime: 7 * 24 * 60 * 60 * 1000, // 7 days
   });
 
+  /**
+   * Sync query state with Redux store
+   * Updates loading state and currencies when data changes
+   */
   useEffect(() => {
     dispatch(setLoading(query.isLoading));
 

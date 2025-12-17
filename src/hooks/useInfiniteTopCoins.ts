@@ -30,9 +30,10 @@ export function useInfiniteTopCoins(options?: {
         pageParam,
         COINGECKO_API_KEY
       ),
+    // Determine next page number, return undefined when no more pages
     getNextPageParam: (lastPage, allPages) => {
       if (lastPage.length < perPage) {
-        return undefined;
+        return undefined; // No more pages if received fewer items than requested
       }
       return allPages.length + 1;
     },
@@ -41,6 +42,7 @@ export function useInfiniteTopCoins(options?: {
     staleTime: 1000 * 60 * 2, // 2 minutes
     gcTime: 1000 * 60 * 10, // 10 minutes
     refetchInterval: false, // Disabled auto-polling to avoid rate limits
+    // refetchInterval: refetchIntervalMs // for automatic polling
     refetchOnWindowFocus: false, // Disabled to avoid rate limits
     retry: 2,
   });

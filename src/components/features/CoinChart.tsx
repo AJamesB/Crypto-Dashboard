@@ -26,7 +26,10 @@ const DATA_TYPES = [
   { value: "total_volumes" as const, label: "Volume" },
 ];
 
-// Time range options
+/**
+ * Time range options
+ * NOTE: CoinGecko API supports only up to 365 days for free tier
+ */
 const TIME_RANGES = [
   { value: 1, label: "24 Hours" },
   { value: 7, label: "7 Days" },
@@ -49,7 +52,10 @@ export const CoinChart: FC<CoinChartProps> = ({ data, isFetching = false }) => {
   const [dataType, setDataType] = useState<keyof HistoricalChartData>("prices");
   const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
 
-  // Transform the data for the chart
+  /**
+   * Transform the raw API data into chart-ready format
+   * Converts [timestamp, value] arrays into objects with formatted dates
+   */
   const chartData: ChartDataPoint[] = useMemo(() => {
     if (!data || !data[dataType]) return [];
 
@@ -65,6 +71,10 @@ export const CoinChart: FC<CoinChartProps> = ({ data, isFetching = false }) => {
     }));
   }, [data, dataType]);
 
+  /**
+   * Format chart values based on data type
+   * Prices show full precision, market cap/volume use compact notation (e.g., "1.2M")
+   */
   const formatValue = useCallback(
     (value: number) => {
       if (dataType === "prices") {
