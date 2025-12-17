@@ -1,10 +1,13 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { useTopCoins } from "../hooks/useTopCoins";
-import { useCurrency } from "../contexts/CurrencyContext";
+import { selectCurrentCurrencyInfo } from "../store/currencySlice";
 
 const TopCoinsList: FC = () => {
-  const { currencySymbol } = useCurrency();
+  // Read currency symbol from Redux store
+  const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
+  
   const { data, isLoading, error, isFetching } = useTopCoins({
     perPage: 10,
   });
@@ -56,7 +59,6 @@ const TopCoinsList: FC = () => {
                 </span>
               </div>
 
-              {/* Right side: Price */}
               <div className="flex flex-col items-end">
                 <div className="flex items-end gap-3">
                   <span className="text-sm text-slate-500">Price</span>

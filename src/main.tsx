@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { CurrencyProvider } from "./contexts/CurrencyContext";
+import { Provider } from "react-redux"; // Redux Provider
+import { store } from "./store/store"; // Redux store
 import "./index.css";
 import App from "./App.tsx";
 
@@ -9,10 +10,10 @@ const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <CurrencyProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
         <App />
-      </CurrencyProvider>
-    </QueryClientProvider>
+      </QueryClientProvider>
+    </Provider>
   </StrictMode>,
 );

@@ -1,9 +1,18 @@
 import type { FC } from "react";
-import { useCurrency, type CurrencyCode } from "../contexts/CurrencyContext";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  selectCurrency,
+  selectAvailableCurrencies,
+  selectIsLoading,
+  setCurrency,
+} from "../store/currencySlice";
 
 export const CurrencySelector: FC = () => {
-  const { currency, setCurrency, availableCurrencies, isLoading } =
-    useCurrency();
+  const currency = useSelector(selectCurrency); 
+  const availableCurrencies = useSelector(selectAvailableCurrencies); 
+  const isLoading = useSelector(selectIsLoading); 
+
+  const dispatch = useDispatch();
 
   if (isLoading) {
     return (
@@ -21,7 +30,7 @@ export const CurrencySelector: FC = () => {
       <select
         id="currency"
         value={currency}
-        onChange={(e) => setCurrency(e.target.value as CurrencyCode)}
+        onChange={(e) => dispatch(setCurrency(e.target.value))}
         className="px-3 py-1 border border-slate-300 rounded-md bg-white text-slate-900 text-sm focus:outline-none"
       >
         {Object.entries(availableCurrencies).map(([code, info]) => (

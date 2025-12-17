@@ -1,13 +1,16 @@
 import type { FC } from "react";
+import { useSelector } from "react-redux";
 import type { CoinDetails as CoinDetailsType } from "../api/coinGecko";
-import { useCurrency } from "../contexts/CurrencyContext";
+import { selectCurrency, selectCurrentCurrencyInfo } from "../store/currencySlice";
 
 interface CoinDetailsProps {
   coin: CoinDetailsType;
 }
 
 export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
-  const { currency, currencySymbol } = useCurrency();
+  // Read currency data from Redux store
+  const currency = useSelector(selectCurrency);
+  const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
   const currencyLower = currency.toLowerCase();
   return (
     <div className="space-y-6">
