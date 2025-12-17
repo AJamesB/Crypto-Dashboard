@@ -171,7 +171,7 @@ export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
                 rel="noopener noreferrer"
                 className="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors no-underline hover:no-underline"
               >
-                Explorer
+                Blockchain Explorer
               </a>
             )}
           </div>

@@ -24,7 +24,7 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({ coins }) => {
           <li key={c.id}>
             <Link
               to={`/coin/${c.id}`}
-              className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-lg hover:scale-105 hover:shadow-lg transition-all cursor-pointer no-underline hover:no-underline"
+              className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-lg hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out cursor-pointer no-underline hover:no-underline"
             >
               {/* Coin Info */}
               <div className="flex items-center gap-3">
