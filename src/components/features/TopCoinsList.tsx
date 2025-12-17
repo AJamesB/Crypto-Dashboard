@@ -6,33 +6,19 @@ import type { CoinMarket } from "../../types";
 
 interface TopCoinsListProps {
   coins: CoinMarket[];
-  isFetching?: boolean;
 }
 
 /**
  * TopCoinsList - Presentational component that displays a list of top cryptocurrencies.
  *
  * @param coins - Array of coin market data to display
- * @param isFetching - Optional flag to show when data is being refreshed
  */
-export const TopCoinsList: FC<TopCoinsListProps> = ({
-  coins,
-  isFetching = false,
-}) => {
-  // Read currency symbol from Redux store
+export const TopCoinsList: FC<TopCoinsListProps> = ({ coins }) => {
   const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 transition-colors">
-        Top Coins by Market Cap{" "}
-        {isFetching && (
-          <span className="text-sm text-slate-500 dark:text-slate-400">
-            (updating...)
-          </span>
-        )}
-      </h2>
-
+      {/* Coins List */}
       <ol className="space-y-3">
         {coins.map((c, index) => (
           <li key={c.id}>
@@ -40,6 +26,7 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
               to={`/coin/${c.id}`}
               className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-lg hover:scale-105 hover:shadow-lg transition-all cursor-pointer no-underline hover:no-underline"
             >
+              {/* Coin Info */}
               <div className="flex items-center gap-3">
                 <span className="text-slate-500 dark:text-slate-400 font-medium w-6">
                   {index + 1}
@@ -59,6 +46,7 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
                 </span>
               </div>
 
+              {/* Price and Market Cap */}
               <div className="flex flex-col items-end">
                 <div className="flex items-end gap-3">
                   <span className="text-sm text-slate-500 dark:text-slate-400">

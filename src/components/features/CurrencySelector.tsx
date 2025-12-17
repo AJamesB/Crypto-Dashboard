@@ -1,55 +1,45 @@
+import { useMemo } from "react";
 import type { FC } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectCurrency,
   selectAvailableCurrencies,
+  selectIsLoading,
   setCurrency,
 } from "../../store/currencySlice";
-
-interface CurrencySelectorProps {
-  isFetching?: boolean;
-}
+import { Select } from "..";
 
 /**
- * CurrencySelector - Presentational component for currency selection dropdown.
- *
- * @param isFetching - Optional flag to show when currency data is being fetched
+ * CurrencySelector - Component for currency selection dropdown.
  */
-export const CurrencySelector: FC<CurrencySelectorProps> = ({
-  isFetching = false,
-}) => {
+export const CurrencySelector: FC = () => {
   const currency = useSelector(selectCurrency);
   const availableCurrencies = useSelector(selectAvailableCurrencies);
+  const isLoading = useSelector(selectIsLoading);
 
   const dispatch = useDispatch();
 
+  const currencyOptions = useMemo(() => {
+    if (isLoading) {
+      return [{ value: "", label: "Loading..." }];
+    }
+
+    return Object.entries(availableCurrencies).map(([code, info]) => ({
+      value: code,
+      label: `${
+        info.symbol ? `${info.symbol} - ` : ""
+      }${info.code.toUpperCase()}${info.name ? ` - ${info.name}` : ""}`,
+    }));
+  }, [availableCurrencies, isLoading]);
+
   return (
-    <div className="flex items-center gap-2">
-      <label
-        htmlFor="currency"
-        className="text-sm text-slate-600 dark:text-slate-400"
-      >
-        Currency:
-      </label>
-      <select
-        id="currency"
-        value={currency}
-        onChange={(e) => dispatch(setCurrency(e.target.value))}
-        disabled={isFetching}
-        className="px-3 py-1 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 text-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-      >
-        {isFetching ? (
-          <option>Loading...</option>
-        ) : (
-          Object.entries(availableCurrencies).map(([code, info]) => (
-            <option key={code} value={code}>
-              {info.symbol ? `${info.symbol} - ` : ""}
-              {info.code.toUpperCase()}
-              {info.name ? ` - ${info.name}` : ""}
-            </option>
-          ))
-        )}
-      </select>
-    </div>
+    <Select
+      id="currency"
+      label="Currency:"
+      value={currency}
+      onChange={(value) => dispatch(setCurrency(value))}
+      options={currencyOptions}
+      disabled={isLoading}
+    />
   );
 };

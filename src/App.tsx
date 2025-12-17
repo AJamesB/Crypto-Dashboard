@@ -3,14 +3,12 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { Header, CurrencySelector, ThemeToggle } from "./components";
 import { useSupportedCurrencies } from "./hooks/useSupportedCurrencies";
-import { selectIsLoading } from "./store/currencySlice";
 import { selectIsDarkMode } from "./store/themeSlice";
 import HomePage from "./pages/HomePage";
 import CoinDetailPage from "./pages/CoinDetailPage";
 
 export default function App() {
   useSupportedCurrencies();
-  const isCurrenciesLoading = useSelector(selectIsLoading);
   const isDarkMode = useSelector(selectIsDarkMode);
 
   // Apply dark class to document root
@@ -34,7 +32,7 @@ export default function App() {
           </Link>
           <div className="flex items-center gap-3">
             <ThemeToggle />
-            <CurrencySelector isFetching={isCurrenciesLoading} />
+            <CurrencySelector />
           </div>
         </Header>
 

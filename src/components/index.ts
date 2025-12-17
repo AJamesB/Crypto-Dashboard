@@ -9,9 +9,13 @@ export { KeyValueRow } from "./ui/KeyValueRow";
 export { LoadingState } from "./ui/LoadingState";
 export { ErrorMessage } from "./ui/ErrorMessage";
 export { Spinner } from "./ui/Spinner";
+export { Select } from "./ui/Select";
+export { EmptyState } from "./ui/EmptyState";
+export { ChartTooltip } from "./ui/ChartTooltip";
 
 // Feature components
 export { CoinDetails } from "./features/CoinDetails";
 export { TopCoinsList } from "./features/TopCoinsList";
 export { CurrencySelector } from "./features/CurrencySelector";
 export { ThemeToggle } from "./features/ThemeToggle";
+export { CoinChart, TIME_RANGES } from "./features/CoinChart";

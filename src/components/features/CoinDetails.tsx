@@ -9,25 +9,20 @@ import { StatCard, KeyValueRow } from "..";
 
 interface CoinDetailsProps {
   coin: CoinDetailsType;
-  isFetching?: boolean;
 }
 
 /**
  * CoinDetails - Presentational component that displays detailed information about a cryptocurrency.
  *
  * @param coin - Detailed coin data to display
- * @param isFetching - Optional flag to show when data is being refreshed
  */
-export const CoinDetails: FC<CoinDetailsProps> = ({
-  coin,
-  isFetching = false,
-}) => {
-  // Read currency data from Redux store
+export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
   const currency = useSelector(selectCurrency);
   const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
   const currencyLower = currency.toLowerCase();
   return (
     <div className="space-y-6">
+      {/* Header Section */}
       <div className="flex items-center gap-4 border-b border-slate-200 dark:border-slate-700 pb-4 transition-colors">
         <img
           src={coin.image?.large}
@@ -37,11 +32,6 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
         <div>
           <h1 className="text-3xl font-bold text-slate-900 dark:text-slate-100">
             {coin.name}
-            {isFetching && (
-              <span className="text-sm text-slate-500 dark:text-slate-400 ml-2 font-normal">
-                (updating...)
-              </span>
-            )}
           </h1>
           <p className="text-slate-600 dark:text-slate-400 uppercase text-sm">
             {coin.symbol}
@@ -49,6 +39,7 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
         </div>
       </div>
 
+      {/* Statistics Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <StatCard
           label="Current Price"
@@ -65,11 +56,13 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
         />
 
         <StatCard
-          label="24h Volume"
-          value={`${currencySymbol}${coin.market_data?.total_volume?.[
-            currencyLower
-          ]?.toLocaleString()}`}
+          label="Total Supply"
+          value={coin.market_data?.total_supply?.toLocaleString(undefined, {
+            maximumFractionDigits: 0,
+          })}
         />
+
+        <StatCard label="Market Cap Rank" value={`#${coin.market_cap_rank}`} />
 
         <StatCard
           label="24h Change"
@@ -89,19 +82,15 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
           }
         />
 
-        <StatCard label="Market Cap Rank" value={`#${coin.market_cap_rank}`} />
-
         <StatCard
-          label="Circulating Supply"
-          value={coin.market_data?.circulating_supply?.toLocaleString(
-            undefined,
-            {
-              maximumFractionDigits: 0,
-            }
-          )}
+          label="Total Volume"
+          value={`${currencySymbol}${coin.market_data?.total_volume?.[
+            currencyLower
+          ]?.toLocaleString()}`}
         />
       </div>
 
+      {/* Description Section */}
       {coin.description?.en && (
         <div>
           <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-3 transition-colors">
@@ -117,6 +106,7 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
         </div>
       )}
 
+      {/* Additional Info Section */}
       <div>
         <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-3 transition-colors">
           Additional Information
@@ -157,6 +147,7 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
         </div>
       </div>
 
+      {/* Links Section */}
       {(coin.links?.homepage?.[0] || coin.links?.blockchain_site?.[0]) && (
         <div>
           <h2 className="text-xl font-semibold text-slate-800 dark:text-slate-200 mb-3 transition-colors">
@@ -168,7 +159,7 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
                 href={coin.links.homepage[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors no-underline hover:no-underline"
               >
                 Official Website
               </a>
@@ -178,7 +169,7 @@ export const CoinDetails: FC<CoinDetailsProps> = ({
                 href={coin.links.blockchain_site[0]}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors"
+                className="px-4 py-2 bg-slate-200 dark:bg-slate-700 text-slate-900 dark:text-slate-100 rounded-md hover:bg-slate-300 dark:hover:bg-slate-600 transition-colors no-underline hover:no-underline"
               >
                 Explorer
               </a>

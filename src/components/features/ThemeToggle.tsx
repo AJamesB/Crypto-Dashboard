@@ -17,7 +17,7 @@ export const ThemeToggle: FC = () => {
       title={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
     >
       <span className="text-slate-700 dark:text-slate-300">
-        {isDarkMode ? <>&#9728;</> : <>&#9790;</>}
+        {isDarkMode ? "\u2600" : "\u263E"}
       </span>
     </button>
   );
