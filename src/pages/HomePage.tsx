@@ -11,8 +11,8 @@ import { useTopCoins } from "../hooks/useTopCoins";
  * HomePage - Page component to display the top cryptocurrencies
  */
 export default function HomePage() {
-  const { data, isLoading, error, isFetching } = useTopCoins({
-    perPage: 10,
+  const { data, isLoading, error, isFetching, refetch } = useTopCoins({
+    perPage: 100,
   });
 
   if (isLoading) {
@@ -32,7 +32,7 @@ export default function HomePage() {
       <main>
         <Container className="py-8">
           <Card>
-            <ErrorMessage message={error.message} />
+            <ErrorMessage message={error.message} onRetry={() => refetch()} />
           </Card>
         </Container>
       </main>

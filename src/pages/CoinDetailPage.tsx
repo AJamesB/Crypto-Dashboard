@@ -13,7 +13,8 @@ import {
  */
 export default function CoinDetailPage() {
   const { coinId } = useParams<{ coinId: string }>();
-  const { data, isLoading, error, isFetching } = useCoinDetails(coinId);
+  const { data, isLoading, error, isFetching, refetch } =
+    useCoinDetails(coinId);
 
   if (isLoading) {
     return (
@@ -27,7 +28,7 @@ export default function CoinDetailPage() {
     return (
       <Container className="py-8">
         <Card>
-          <ErrorMessage message={error.message} />
+          <ErrorMessage message={error.message} onRetry={() => refetch()} />
           <Link
             to="/"
             className="mt-4 inline-block text-blue-600 dark:text-blue-400 hover:underline"

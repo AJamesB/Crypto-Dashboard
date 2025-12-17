@@ -25,7 +25,7 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
   return (
     <div className="space-y-4">
       <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 transition-colors">
-        Top 10 by Market Cap{" "}
+        Top Coins by Market Cap{" "}
         {isFetching && (
           <span className="text-sm text-slate-500 dark:text-slate-400">
             (updating...)
