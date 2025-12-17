@@ -1,11 +1,14 @@
 import type { FC } from "react";
 import type { CoinDetails as CoinDetailsType } from "../api/coinGecko";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 interface CoinDetailsProps {
   coin: CoinDetailsType;
 }
 
 export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
+  const { currency, currencySymbol } = useCurrency();
+  const currencyLower = currency.toLowerCase();
   return (
     <div className="space-y-6">
       <div className="flex items-center gap-4 border-b border-slate-200 pb-4">
@@ -24,21 +27,21 @@ export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
         <div className="p-4 bg-slate-50 rounded-lg">
           <p className="text-sm text-slate-600 mb-1">Current Price</p>
           <p className="text-2xl font-bold font-mono">
-            ${coin.market_data?.current_price?.usd?.toLocaleString()}
+            {currencySymbol}{coin.market_data?.current_price?.[currencyLower]?.toLocaleString()}
           </p>
         </div>
 
         <div className="p-4 bg-slate-50 rounded-lg">
           <p className="text-sm text-slate-600 mb-1">Market Cap</p>
           <p className="text-2xl font-bold font-mono">
-            ${coin.market_data?.market_cap?.usd?.toLocaleString()}
+            {currencySymbol}{coin.market_data?.market_cap?.[currencyLower]?.toLocaleString()}
           </p>
         </div>
 
         <div className="p-4 bg-slate-50 rounded-lg">
           <p className="text-sm text-slate-600 mb-1">24h Volume</p>
           <p className="text-2xl font-bold font-mono">
-            ${coin.market_data?.total_volume?.usd?.toLocaleString()}
+            {currencySymbol}{coin.market_data?.total_volume?.[currencyLower]?.toLocaleString()}
           </p>
         </div>
 
@@ -92,35 +95,35 @@ export const CoinDetails: FC<CoinDetailsProps> = ({ coin }) => {
           Additional Information
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-          {coin.market_data?.high_24h?.usd && (
+          {coin.market_data?.high_24h?.[currencyLower] && (
             <div className="flex justify-between p-3 bg-slate-50 rounded">
               <span className="text-slate-600">24h High</span>
               <span className="font-mono font-medium">
-                ${coin.market_data.high_24h.usd.toLocaleString()}
+                {currencySymbol}{coin.market_data.high_24h[currencyLower].toLocaleString()}
               </span>
             </div>
           )}
-          {coin.market_data?.low_24h?.usd && (
+          {coin.market_data?.low_24h?.[currencyLower] && (
             <div className="flex justify-between p-3 bg-slate-50 rounded">
               <span className="text-slate-600">24h Low</span>
               <span className="font-mono font-medium">
-                ${coin.market_data.low_24h.usd.toLocaleString()}
+                {currencySymbol}{coin.market_data.low_24h[currencyLower].toLocaleString()}
               </span>
             </div>
           )}
-          {coin.market_data?.ath?.usd && (
+          {coin.market_data?.ath?.[currencyLower] && (
             <div className="flex justify-between p-3 bg-slate-50 rounded">
               <span className="text-slate-600">All-Time High</span>
               <span className="font-mono font-medium">
-                ${coin.market_data.ath.usd.toLocaleString()}
+                {currencySymbol}{coin.market_data.ath[currencyLower].toLocaleString()}
               </span>
             </div>
           )}
-          {coin.market_data?.atl?.usd && (
+          {coin.market_data?.atl?.[currencyLower] && (
             <div className="flex justify-between p-3 bg-slate-50 rounded">
               <span className="text-slate-600">All-Time Low</span>
               <span className="font-mono font-medium">
-                ${coin.market_data.atl.usd.toLocaleString()}
+                {currencySymbol}{coin.market_data.atl[currencyLower].toLocaleString()}
               </span>
             </div>
           )}

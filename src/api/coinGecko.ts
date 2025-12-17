@@ -1,3 +1,12 @@
+import currencyCodes from "currency-codes";
+import getSymbolFromCurrency from "currency-symbol-map";
+
+export type CurrencyInfo = {
+  code: string;
+  symbol: string;
+  name: string;
+};
+
 export type CoinMarket = {
   id: string;
   symbol: string;
@@ -20,15 +29,15 @@ export type CoinDetails = {
     en: string;
   };
   market_data?: {
-    current_price?: { usd: number };
-    market_cap?: { usd: number };
-    total_volume?: { usd: number };
+    current_price?: Record<string, number>;
+    market_cap?: Record<string, number>;
+    total_volume?: Record<string, number>;
     price_change_percentage_24h: number;
     circulating_supply: number;
-    high_24h?: { usd: number };
-    low_24h?: { usd: number };
-    ath?: { usd: number };
-    atl?: { usd: number };
+    high_24h?: Record<string, number>;
+    low_24h?: Record<string, number>;
+    ath?: Record<string, number>;
+    atl?: Record<string, number>;
   };
   links?: {
     homepage?: string[];
@@ -67,9 +76,12 @@ export async function fetchTopMarketCoins(
 
 export async function fetchCoinDetails(
   coinId: string,
+  vsCurrency: string = "zar",
   apiKey?: string
 ): Promise<CoinDetails> {
-  const url = `${BASE}/coins/${coinId}?localization=false&tickers=false&community_data=false&developer_data=false`;
+  const url = `${BASE}/coins/${coinId}?localization=false&tickers=false&community_data=false&developer_data=false&vs_currency=${encodeURIComponent(
+    vsCurrency
+  )}`;
 
   const headers: Record<string, string> = {
     Accept: "application/json",
@@ -87,4 +99,46 @@ export async function fetchCoinDetails(
 
   const data = (await resp.json()) as CoinDetails;
   return data;
+}
+
+export async function fetchSupportedCurrencies(
+  apiKey?: string
+): Promise<Record<string, CurrencyInfo>> {
+  const url = `${BASE}/simple/supported_vs_currencies`;
+
+  const headers: Record<string, string> = {
+    Accept: "application/json",
+  };
+
+  if (apiKey) {
+    headers["Authorization"] = `Bearer ${apiKey}`;
+  }
+
+  const resp = await fetch(url, { headers });
+  if (!resp.ok) {
+    const text = await resp.text();
+    throw new Error(
+      `Failed to fetch supported currencies: ${resp.status} - ${text}`
+    );
+  }
+
+  const currencies: string[] = await resp.json();
+
+  const currencyMap: Record<string, CurrencyInfo> = {};
+  currencies.forEach((code) => {
+    const upperCode = code.toUpperCase();
+
+    const symbol = getSymbolFromCurrency(upperCode) || "";
+
+    const currencyData = currencyCodes.code(upperCode);
+    const name = currencyData?.currency || "";
+
+    currencyMap[upperCode] = {
+      code: code,
+      symbol: symbol,
+      name: name,
+    };
+  });
+
+  return currencyMap;
 }

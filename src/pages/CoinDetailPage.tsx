@@ -43,9 +43,9 @@ export default function CoinDetailPage() {
       <div className="mb-4">
         <Link
           to="/"
-          className="text-blue-600 hover:underline flex items-center gap-1"
+          className="text-blue-600 hover:underline inline-flex items-center gap-1"
         >
-          ← Back to list
+          &larr; Back to list
         </Link>
       </div>
 

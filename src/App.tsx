@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import { Header } from "./components/Header";
+import { CurrencySelector } from "./components/CurrencySelector";
 import HomePage from "./pages/HomePage";
 import CoinDetailPage from "./pages/CoinDetailPage";
 
@@ -11,6 +12,7 @@ export default function App() {
           <Link to="/" className="text-xl font-semibold hover:text-slate-700 transition-colors">
             Crypto Dashboard
           </Link>
+          <CurrencySelector />
         </Header>
 
         <Routes>

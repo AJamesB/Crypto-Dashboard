@@ -1,8 +1,10 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
 import { useTopCoins } from "../hooks/useTopCoins";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 const TopCoinsList: FC = () => {
+  const { currencySymbol } = useCurrency();
   const { data, isLoading, error, isFetching } = useTopCoins({
     perPage: 10,
   });
@@ -35,9 +37,8 @@ const TopCoinsList: FC = () => {
           <li key={c.id}>
             <Link
               to={`/coin/${c.id}`}
-              className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-lg hover:scale-105 hover:shadow-lg transition-all cursor-pointer"
+              className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-lg hover:scale-105 hover:shadow-lg transition-all cursor-pointer no-underline hover:no-underline"
             >
-              {/* Left side: Rank, name, and symbol */}
               <div className="flex items-center gap-3">
                 <span className="text-slate-500 font-medium w-6">
                   {index + 1}
@@ -60,7 +61,7 @@ const TopCoinsList: FC = () => {
                 <div className="flex items-end gap-3">
                   <span className="text-sm text-slate-500">Price</span>
                   <span className="text-slate-900 font-mono font-medium">
-                    $
+                    {currencySymbol}
                     {c.current_price.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 8,
@@ -72,7 +73,7 @@ const TopCoinsList: FC = () => {
                     Market Cap
                   </span>
                   <span className="text-slate-900 font-mono font-medium w-30">
-                    $
+                    {currencySymbol}
                     {c.market_cap.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
                       maximumFractionDigits: 8,

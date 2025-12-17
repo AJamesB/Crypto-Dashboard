@@ -1,25 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchTopMarketCoins } from "../api/coinGecko";
+import { useCurrency } from "../contexts/CurrencyContext";
 
 export function useTopCoins(options?: {
   perPage?: number;
-  vsCurrency?: string;
   enabled?: boolean;
   refetchIntervalMs?: number;
 }) {
+  const { currency } = useCurrency();
   const {
     perPage = 10,
-    vsCurrency = "usd",
     enabled = true,
     refetchIntervalMs = 30000,
   } = options ?? {};
 
   return useQuery({
-    queryKey: ["topCoins", perPage, vsCurrency],
+    queryKey: ["topCoins", perPage, currency.toLowerCase()],
     queryFn: () =>
       fetchTopMarketCoins(
         perPage,
-        vsCurrency,
+        currency.toLowerCase(),
         1,
         import.meta.env.VITE_COINGECKO_API_KEY,
       ),
