@@ -1,12 +1,14 @@
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import { Header, CurrencySelector } from "./components";
 import { useSupportedCurrencies } from "./hooks/useSupportedCurrencies";
+import { selectIsLoading } from "./store/currencySlice";
 import HomePage from "./pages/HomePage";
 import CoinDetailPage from "./pages/CoinDetailPage";
 
 export default function App() {
-  // Fetch currencies and sync to Redux store on app load
   useSupportedCurrencies();
+  const isCurrenciesLoading = useSelector(selectIsLoading);
 
   return (
     <BrowserRouter basename="/Crypto-Dashboard">
@@ -18,7 +20,7 @@ export default function App() {
           >
             Crypto Dashboard
           </Link>
-          <CurrencySelector />
+          <CurrencySelector isFetching={isCurrenciesLoading} />
         </Header>
 
         <Routes>
