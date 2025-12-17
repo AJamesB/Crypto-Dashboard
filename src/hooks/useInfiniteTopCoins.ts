@@ -16,7 +16,6 @@ export function useInfiniteTopCoins(options?: {
   perPage?: number;
   enabled?: boolean;
 }) {
-  // Read currency from Redux store
   const currency = useSelector(selectCurrency);
 
   const { perPage = 100, enabled = true } = options ?? {};

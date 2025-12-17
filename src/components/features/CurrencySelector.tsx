@@ -21,7 +21,7 @@ export const CurrencySelector: FC = () => {
 
   /**
    * Format available currencies into dropdown options
-   * Creates labels in format: "$ - USD - United States Dollar"
+   * Creates labels in format: "R - ZAR - South African Rand"
    */
   const currencyOptions = useMemo(() => {
     if (isLoading) {
