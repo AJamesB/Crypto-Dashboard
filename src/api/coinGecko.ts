@@ -1,49 +1,6 @@
 import currencyCodes from "currency-codes";
 import getSymbolFromCurrency from "currency-symbol-map";
-
-export type CurrencyInfo = {
-  code: string;
-  symbol: string;
-  name: string;
-};
-
-export type CoinMarket = {
-  id: string;
-  symbol: string;
-  name: string;
-  image: string;
-  current_price: number;
-  market_cap: number;
-  market_cap_rank: number;
-};
-
-export type CoinDetails = {
-  id: string;
-  symbol: string;
-  name: string;
-  image?: {
-    large: string;
-  };
-  market_cap_rank: number;
-  description?: {
-    en: string;
-  };
-  market_data?: {
-    current_price?: Record<string, number>;
-    market_cap?: Record<string, number>;
-    total_volume?: Record<string, number>;
-    price_change_percentage_24h: number;
-    circulating_supply: number;
-    high_24h?: Record<string, number>;
-    low_24h?: Record<string, number>;
-    ath?: Record<string, number>;
-    atl?: Record<string, number>;
-  };
-  links?: {
-    homepage?: string[];
-    blockchain_site?: string[];
-  };
-};
+import type { CoinMarket, CoinDetails, CurrencyInfo } from "../types";
 
 const BASE = "https://api.coingecko.com/api/v3";
 
@@ -68,14 +25,6 @@ export async function fetchTopMarketCoins(
   const resp = await fetch(url, { headers });
   if (!resp.ok) {
     const text = await resp.text();
-    
-    // Better error message for rate limiting
-    if (resp.status === 429) {
-      throw new Error(
-        `Rate limit exceeded. Please wait a minute before trying again. (Using demo API with limited calls/minute)`
-      );
-    }
-    
     throw new Error(`CoinGecko fetch error ${resp.status}: ${text}`);
   }
   const data = (await resp.json()) as CoinMarket[];
@@ -102,14 +51,6 @@ export async function fetchCoinDetails(
   const resp = await fetch(url, { headers });
   if (!resp.ok) {
     const text = await resp.text();
-    
-    // Better error message for rate limiting
-    if (resp.status === 429) {
-      throw new Error(
-        `Rate limit exceeded. Please wait a minute before trying again. (Using demo API with limited calls/minute)`
-      );
-    }
-    
     throw new Error(`Failed to fetch coin details: ${resp.status} - ${text}`);
   }
 
@@ -133,14 +74,6 @@ export async function fetchSupportedCurrencies(
   const resp = await fetch(url, { headers });
   if (!resp.ok) {
     const text = await resp.text();
-    
-    // Better error message for rate limiting
-    if (resp.status === 429) {
-      throw new Error(
-        `Rate limit exceeded. Please wait a minute before trying again. (Using demo API with limited calls/minute)`
-      );
-    }
-    
     throw new Error(
       `Failed to fetch supported currencies: ${resp.status} - ${text}`
     );

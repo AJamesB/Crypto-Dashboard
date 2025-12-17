@@ -1,19 +1,24 @@
 import { useParams, Link } from "react-router-dom";
 import { useCoinDetails } from "../hooks/useCoinDetails";
-import { CoinDetails } from "../components/CoinDetails";
-import { Container } from "../components/Container";
-import { Card } from "../components/Card";
+import {
+  CoinDetails,
+  Container,
+  Card,
+  LoadingState,
+  ErrorMessage,
+} from "../components";
 
+/**
+ * CoinDetailPage - Page component to display detailed information about a specific coin
+ */
 export default function CoinDetailPage() {
   const { coinId } = useParams<{ coinId: string }>();
-  const { data, isLoading, error } = useCoinDetails(coinId);
+  const { data, isLoading, error, isFetching } = useCoinDetails(coinId);
 
   if (isLoading) {
     return (
       <Container className="py-8">
-        <div className="text-center py-12 text-slate-600">
-          Loading coin details...
-        </div>
+        <LoadingState message="Loading coin details..." />
       </Container>
     );
   }
@@ -22,9 +27,7 @@ export default function CoinDetailPage() {
     return (
       <Container className="py-8">
         <Card>
-          <div className="text-center py-8 text-red-600 bg-red-50 rounded-md p-4">
-            Error: {error.message}
-          </div>
+          <ErrorMessage message={error.message} />
           <Link
             to="/"
             className="mt-4 inline-block text-blue-600 hover:underline"
@@ -50,7 +53,7 @@ export default function CoinDetailPage() {
       </div>
 
       <Card>
-        <CoinDetails coin={data} />
+        <CoinDetails coin={data} isFetching={isFetching} />
       </Card>
     </Container>
   );

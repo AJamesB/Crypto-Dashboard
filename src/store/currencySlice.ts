@@ -1,20 +1,29 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { CurrencyInfo } from "../api/coinGecko";
+import type { CurrencyInfo } from "../types";
 
+/**
+ * CurrencyState - State structure for currency management
+ */
 interface CurrencyState {
   selectedCurrency: string;
   availableCurrencies: Record<string, CurrencyInfo>;
   isLoading: boolean;
 }
 
+/**
+ * Initial state for currency management
+ */
 const initialState: CurrencyState = {
   selectedCurrency: "ZAR",
   availableCurrencies: {},
   isLoading: false,
 };
 
+/**
+ * currencySlice - Redux slice for currency management
+ */
 const currencySlice = createSlice({
-  name: "currency", 
+  name: "currency",
   initialState,
   reducers: {
     setCurrency: (state, action: PayloadAction<string>) => {
@@ -38,12 +47,12 @@ export const { setCurrency, setCurrencies, setLoading } = currencySlice.actions;
 
 export default currencySlice.reducer;
 
+// Selectors
 export const selectCurrency = (state: { currency: CurrencyState }) =>
   state.currency.selectedCurrency;
 
-export const selectAvailableCurrencies = (state: {
-  currency: CurrencyState;
-}) => state.currency.availableCurrencies;
+export const selectAvailableCurrencies = (state: { currency: CurrencyState }) =>
+  state.currency.availableCurrencies;
 
 export const selectIsLoading = (state: { currency: CurrencyState }) =>
   state.currency.isLoading;
@@ -53,7 +62,7 @@ export const selectCurrentCurrencyInfo = (state: {
 }) => {
   const currency = state.currency.selectedCurrency;
   const available = state.currency.availableCurrencies;
-  
+
   return (
     available[currency] || {
       code: currency.toLowerCase(),

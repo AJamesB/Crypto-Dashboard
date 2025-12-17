@@ -1,13 +1,51 @@
-import TopCoinsList from "../components/TopCoinsList";
-import { Container } from "../components/Container";
-import { Card } from "../components/Card";
+import {
+  TopCoinsList,
+  Container,
+  Card,
+  LoadingState,
+  ErrorMessage,
+} from "../components";
+import { useTopCoins } from "../hooks/useTopCoins";
 
+/**
+ * HomePage - Page component to display the top cryptocurrencies
+ */
 export default function HomePage() {
+  const { data, isLoading, error, isFetching } = useTopCoins({
+    perPage: 10,
+  });
+
+  if (isLoading) {
+    return (
+      <main>
+        <Container className="py-8">
+          <Card>
+            <LoadingState message="Loading top coins…" />
+          </Card>
+        </Container>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main>
+        <Container className="py-8">
+          <Card>
+            <ErrorMessage message={error.message} />
+          </Card>
+        </Container>
+      </main>
+    );
+  }
+
+  if (!data) return null;
+
   return (
     <main>
       <Container className="py-8">
         <Card>
-          <TopCoinsList />
+          <TopCoinsList coins={data} isFetching={isFetching} />
         </Card>
       </Container>
     </main>

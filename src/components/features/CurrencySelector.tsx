@@ -5,12 +5,15 @@ import {
   selectAvailableCurrencies,
   selectIsLoading,
   setCurrency,
-} from "../store/currencySlice";
+} from "../../store/currencySlice";
 
+/**
+ * CurrencySelector - A dropdown to select the current currency
+ */
 export const CurrencySelector: FC = () => {
-  const currency = useSelector(selectCurrency); 
-  const availableCurrencies = useSelector(selectAvailableCurrencies); 
-  const isLoading = useSelector(selectIsLoading); 
+  const currency = useSelector(selectCurrency);
+  const availableCurrencies = useSelector(selectAvailableCurrencies);
+  const isLoading = useSelector(selectIsLoading);
 
   const dispatch = useDispatch();
 

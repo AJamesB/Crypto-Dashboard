@@ -1,30 +1,26 @@
 import type { FC } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useTopCoins } from "../hooks/useTopCoins";
-import { selectCurrentCurrencyInfo } from "../store/currencySlice";
+import { selectCurrentCurrencyInfo } from "../../store/currencySlice";
+import type { CoinMarket } from "../../types";
 
-const TopCoinsList: FC = () => {
+interface TopCoinsListProps {
+  coins: CoinMarket[];
+  isFetching?: boolean;
+}
+
+/**
+ * TopCoinsList - Presentational component that displays a list of top cryptocurrencies.
+ *
+ * @param coins - Array of coin market data to display
+ * @param isFetching - Optional flag to show when data is being refreshed
+ */
+export const TopCoinsList: FC<TopCoinsListProps> = ({
+  coins,
+  isFetching = false,
+}) => {
   // Read currency symbol from Redux store
   const { symbol: currencySymbol } = useSelector(selectCurrentCurrencyInfo);
-  
-  const { data, isLoading, error, isFetching } = useTopCoins({
-    perPage: 10,
-  });
-
-  if (isLoading) {
-    return (
-      <div className="text-center py-8 text-slate-600">Loading top coins…</div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="text-center py-8 text-red-600 bg-red-50 rounded-md p-4">
-        Error: {error.message}
-      </div>
-    );
-  }
 
   return (
     <div className="space-y-4">
@@ -36,7 +32,7 @@ const TopCoinsList: FC = () => {
       </h2>
 
       <ol className="space-y-3">
-        {data?.map((c, index) => (
+        {coins.map((c, index) => (
           <li key={c.id}>
             <Link
               to={`/coin/${c.id}`}
@@ -90,5 +86,3 @@ const TopCoinsList: FC = () => {
     </div>
   );
 };
-
-export default TopCoinsList;
