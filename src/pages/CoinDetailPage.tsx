@@ -30,9 +30,9 @@ export default function CoinDetailPage() {
           <ErrorMessage message={error.message} />
           <Link
             to="/"
-            className="mt-4 inline-block text-blue-600 hover:underline"
+            className="mt-4 inline-block text-blue-600 dark:text-blue-400 hover:underline"
           >
-            ← Back to list
+            &larr; Back to list
           </Link>
         </Card>
       </Container>
@@ -46,7 +46,7 @@ export default function CoinDetailPage() {
       <div className="mb-4">
         <Link
           to="/"
-          className="text-blue-600 hover:underline inline-flex items-center gap-1"
+          className="text-blue-600 dark:text-blue-400 hover:underline inline-flex items-center gap-1"
         >
           &larr; Back to list
         </Link>

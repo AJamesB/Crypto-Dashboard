@@ -25,7 +25,10 @@ export const CurrencySelector: FC<CurrencySelectorProps> = ({
 
   return (
     <div className="flex items-center gap-2">
-      <label htmlFor="currency" className="text-sm text-slate-600">
+      <label
+        htmlFor="currency"
+        className="text-sm text-slate-600 dark:text-slate-400"
+      >
         Currency:
       </label>
       <select
@@ -33,7 +36,7 @@ export const CurrencySelector: FC<CurrencySelectorProps> = ({
         value={currency}
         onChange={(e) => dispatch(setCurrency(e.target.value))}
         disabled={isFetching}
-        className="px-3 py-1 border border-slate-300 rounded-md bg-white text-slate-900 text-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed"
+        className="px-3 py-1 border border-slate-300 dark:border-slate-600 rounded-md bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 text-sm focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {isFetching ? (
           <option>Loading...</option>

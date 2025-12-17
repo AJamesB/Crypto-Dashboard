@@ -17,7 +17,7 @@ export const ErrorMessage: FC<ErrorMessageProps> = ({
 }) => {
   return (
     <div
-      className={`text-center py-8 text-red-600 bg-red-50 rounded-md p-4 ${className}`}
+      className={`text-center py-8 text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 rounded-md p-4 transition-colors ${className}`}
     >
       Error: {message}
     </div>

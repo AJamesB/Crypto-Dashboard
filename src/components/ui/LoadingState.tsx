@@ -20,7 +20,7 @@ export const LoadingState: FC<LoadingStateProps> = ({
     <div className={`text-center py-8 ${className}`}>
       <div className="flex flex-col items-center gap-3">
         <Spinner size={32} />
-        <p className="text-slate-600">{message}</p>
+        <p className="text-slate-600 dark:text-slate-400">{message}</p>
       </div>
     </div>
   );

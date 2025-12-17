@@ -19,9 +19,13 @@ export const StatCard: FC<StatCardProps> = ({
   className = "",
 }) => {
   return (
-    <div className={`p-4 bg-slate-50 rounded-lg ${className}`}>
-      <p className="text-sm text-slate-600 mb-1">{label}</p>
-      <div className="text-2xl font-bold font-mono">{value}</div>
+    <div
+      className={`p-4 bg-slate-50 dark:bg-slate-700 rounded-lg transition-colors ${className}`}
+    >
+      <p className="text-sm text-slate-600 dark:text-slate-400 mb-1">{label}</p>
+      <div className="text-2xl font-bold font-mono text-slate-900 dark:text-slate-100">
+        {value}
+      </div>
     </div>
   );
 };

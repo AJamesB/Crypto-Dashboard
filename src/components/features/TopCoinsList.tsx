@@ -24,10 +24,12 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
 
   return (
     <div className="space-y-4">
-      <h2 className="text-lg font-semibold text-slate-800 border-b border-slate-200 pb-2">
+      <h2 className="text-lg font-semibold text-slate-800 dark:text-slate-200 border-b border-slate-200 dark:border-slate-700 pb-2 transition-colors">
         Top 10 by Market Cap{" "}
         {isFetching && (
-          <span className="text-sm text-slate-500">(updating...)</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">
+            (updating...)
+          </span>
         )}
       </h2>
 
@@ -36,10 +38,10 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
           <li key={c.id}>
             <Link
               to={`/coin/${c.id}`}
-              className="flex items-center justify-between p-3 bg-slate-50 hover:bg-slate-100 rounded-lg hover:scale-105 hover:shadow-lg transition-all cursor-pointer no-underline hover:no-underline"
+              className="flex items-center justify-between p-3 bg-slate-50 dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 rounded-lg hover:scale-105 hover:shadow-lg transition-all cursor-pointer no-underline hover:no-underline"
             >
               <div className="flex items-center gap-3">
-                <span className="text-slate-500 font-medium w-6">
+                <span className="text-slate-500 dark:text-slate-400 font-medium w-6">
                   {index + 1}
                 </span>
                 <span>
@@ -49,16 +51,20 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
                     className="w-6 h-6 rounded-full"
                   />
                 </span>
-                <strong className="text-slate-900">{c.name}</strong>
-                <span className="text-xs text-slate-500 uppercase">
+                <strong className="text-slate-900 dark:text-slate-100">
+                  {c.name}
+                </strong>
+                <span className="text-xs text-slate-500 dark:text-slate-400 uppercase">
                   {c.symbol}
                 </span>
               </div>
 
               <div className="flex flex-col items-end">
                 <div className="flex items-end gap-3">
-                  <span className="text-sm text-slate-500">Price</span>
-                  <span className="text-slate-900 font-mono font-medium">
+                  <span className="text-sm text-slate-500 dark:text-slate-400">
+                    Price
+                  </span>
+                  <span className="text-slate-900 dark:text-slate-100 font-mono font-medium">
                     {currencySymbol}
                     {c.current_price.toLocaleString(undefined, {
                       minimumFractionDigits: 2,
@@ -67,10 +73,10 @@ export const TopCoinsList: FC<TopCoinsListProps> = ({
                   </span>
                 </div>
                 <div className="flex items-end gap-3">
-                  <span className="text-sm text-slate-500 w-13">
+                  <span className="text-sm text-slate-500 dark:text-slate-400 w-13">
                     Market Cap
                   </span>
-                  <span className="text-slate-900 font-mono font-medium w-30">
+                  <span className="text-slate-900 dark:text-slate-100 font-mono font-medium w-30">
                     {currencySymbol}
                     {c.market_cap.toLocaleString(undefined, {
                       minimumFractionDigits: 2,

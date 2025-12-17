@@ -12,7 +12,7 @@ interface HeaderProps {
  */
 export const Header = ({ children }: HeaderProps) => {
   return (
-    <header className="bg-white shadow-sm">
+    <header className="bg-white dark:bg-slate-800 shadow-sm dark:shadow-slate-700/20 transition-colors">
       <Container className="py-4 flex items-center justify-between">
         {children}
       </Container>

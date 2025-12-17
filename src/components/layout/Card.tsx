@@ -12,7 +12,9 @@ interface CardProps {
  */
 export const Card = ({ children, className = "" }: CardProps) => {
   return (
-    <section className={`bg-white rounded-md shadow-sm p-6 ${className}`}>
+    <section
+      className={`bg-white dark:bg-slate-800 rounded-md shadow-sm dark:shadow-slate-700/20 p-6 transition-colors ${className}`}
+    >
       {children}
     </section>
   );

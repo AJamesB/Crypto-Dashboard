@@ -14,3 +14,4 @@ export { Spinner } from "./ui/Spinner";
 export { CoinDetails } from "./features/CoinDetails";
 export { TopCoinsList } from "./features/TopCoinsList";
 export { CurrencySelector } from "./features/CurrencySelector";
+export { ThemeToggle } from "./features/ThemeToggle";

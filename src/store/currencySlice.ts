@@ -1,27 +1,18 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { CurrencyInfo } from "../types";
 
-/**
- * CurrencyState - State structure for currency management
- */
 interface CurrencyState {
   selectedCurrency: string;
   availableCurrencies: Record<string, CurrencyInfo>;
   isLoading: boolean;
 }
 
-/**
- * Initial state for currency management
- */
 const initialState: CurrencyState = {
   selectedCurrency: "ZAR",
   availableCurrencies: {},
   isLoading: false,
 };
 
-/**
- * currencySlice - Redux slice for currency management
- */
 const currencySlice = createSlice({
   name: "currency",
   initialState,
