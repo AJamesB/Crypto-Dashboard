@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Container } from "./Container";
+import { Container } from "..";
 
 interface HeaderProps {
   children: ReactNode;

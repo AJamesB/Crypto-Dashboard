@@ -8,6 +8,7 @@ export { StatCard } from "./ui/StatCard";
 export { KeyValueRow } from "./ui/KeyValueRow";
 export { LoadingState } from "./ui/LoadingState";
 export { ErrorMessage } from "./ui/ErrorMessage";
+export { Spinner } from "./ui/Spinner";
 
 // Feature components
 export { CoinDetails } from "./features/CoinDetails";

@@ -6,6 +6,7 @@ import {
   selectIsLoading,
   setCurrency,
 } from "../../store/currencySlice";
+import { Spinner } from "..";
 
 /**
  * CurrencySelector - A dropdown to select the current currency
@@ -20,6 +21,7 @@ export const CurrencySelector: FC = () => {
   if (isLoading) {
     return (
       <div className="flex items-center gap-2">
+        <Spinner size={20} />
         <span className="text-sm text-slate-500">Loading currencies...</span>
       </div>
     );

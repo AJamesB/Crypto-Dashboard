@@ -5,8 +5,7 @@ import {
   selectCurrency,
   selectCurrentCurrencyInfo,
 } from "../../store/currencySlice";
-import { StatCard } from "../ui/StatCard";
-import { KeyValueRow } from "../ui/KeyValueRow";
+import { StatCard, KeyValueRow } from "..";
 
 interface CoinDetailsProps {
   coin: CoinDetailsType;
