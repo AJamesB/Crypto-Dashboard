@@ -62,26 +62,10 @@ npm run dev
 
 5. Open your browser to `http://localhost:5173`
 
-## 🔧 Configuration
+## Configuration
 
 ### API Key
 The app uses CoinGecko's API with a demo key included. For production use or higher rate limits, get your own API key from [CoinGecko](https://www.coingecko.com/en/api) and add it to your `.env` file.
 
 ### Build Configuration
 The app is configured for GitHub Pages deployment with the base path `/Crypto-Dashboard`. To deploy elsewhere, update the `base` in `vite.config.ts` and the `basename` in `App.tsx`.
-
-## 📝 Scripts
-
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-
-## 🚀 Deployment
-
-The app is configured for GitHub Pages:
-
-```bash
-npm run build
-# Deploy the dist/ folder to GitHub Pages
-```
